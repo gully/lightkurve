@@ -119,6 +119,9 @@ class LightCurve(object):
                 raise ValueError("Cannot add LightCurve objects because "
                                  "they do not have equal length ({} vs {})."
                                  "".format(len(self), len(other)))
+            if np.any(self.time != other.time):
+                warnings.warn("Two LightCurve objects with inconsistent time "
+                              "values are being added.")
             newlc.flux = self.flux + other.flux
             newlc.flux_err = np.hypot(self.flux_err, other.flux_err)
         else:
@@ -142,6 +145,9 @@ class LightCurve(object):
                 raise ValueError("Cannot multiply LightCurve objects because "
                                  "they do not have equal length ({} vs {})."
                                  "".format(len(self), len(other)))
+            if np.any(self.time != other.time):
+                warnings.warn("Two LightCurve objects with inconsistent time "
+                              "values are being multiplied.")
             newlc.flux = other.flux * self.flux
             newlc.flux_err = abs(other.flux) * self.flux_err
         else:
@@ -162,6 +168,9 @@ class LightCurve(object):
                 raise ValueError("Cannot divide LightCurve objects because "
                                  "they do not have equal length ({} vs {})."
                                  "".format(len(self), len(other)))
+            if np.any(self.time != other.time):
+                warnings.warn("Two LightCurve objects with inconsistent time "
+                              "values are being divided.")
             newlc.flux = other.flux / self.flux
         else:
             newlc.flux = other / self.flux
