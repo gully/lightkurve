@@ -126,7 +126,6 @@ class LightCurve(object):
             newlc.flux_err = np.hypot(self.flux_err, other.flux_err)
         else:
             newlc.flux = self.flux + other
-            newlc.flux_err = np.hypot(self.flux_err, other)
         return newlc
 
     def __radd__(self, other):
@@ -148,8 +147,10 @@ class LightCurve(object):
             if np.any(self.time != other.time):
                 warnings.warn("Two LightCurve objects with inconsistent time "
                               "values are being multiplied.")
-            newlc.flux = other.flux * self.flux
-            newlc.flux_err = abs(other.flux) * self.flux_err
+            newlc.flux = self.flux * other.flux
+            # Applying standard uncertainty propagation, cf.
+            # https://en.wikipedia.org/wiki/Propagation_of_uncertainty#Example_formulae
+            newlc.flux_err = abs(newlc.flux) * np.hypot(self.flux_err / self.flux, other.flux_err / other.flux)
         else:
             newlc.flux = other * self.flux
             newlc.flux_err = abs(other) * self.flux_err
@@ -172,8 +173,10 @@ class LightCurve(object):
                 warnings.warn("Two LightCurve objects with inconsistent time "
                               "values are being divided.")
             newlc.flux = other.flux / self.flux
+            newlc.flux_err = abs(newlc.flux) * np.hypot(self.flux_err / self.flux, other.flux_err / other.flux)
         else:
             newlc.flux = other / self.flux
+            newlc.flux_err = abs((other * self.flux_err) / (self.flux**2))
         return newlc
 
     def __div__(self, other):
