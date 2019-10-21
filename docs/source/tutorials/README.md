@@ -2,6 +2,23 @@
 
 ## Table of contents
 
+
+Note from 10/21/2019--- Let's make science *themes*:
+- Stellar activity
+- asteroseismology
+- Exoplanets
+- Eclipsing binaries
+- Clusters and young stars
+- Extragalactic
+  - (AGN)
+- Classic variables
+  - RR Lyrae,
+- Interacting binaries
+  - Heartbeat stars
+  - CVs
+- Solar system science
+
+
 :tv: *denotes a narrated screencast is available on the [Kepler/K2 Guest Observer Office YouTube Channel](https://www.youtube.com/channel/UCJx_ls4mg5ms9q4Mv_2mYqg).*
 
 ### Introduction to lightkurve
